@@ -3,27 +3,15 @@
   "name": "Private Plugins",
   "description": "Blocks your browser from telling websites what plugins you have installed. Specific plugins can be re-enabled once or always for a given website.",
   "version": "1.0",
-
   "background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
-
-  "content_scripts" : [
-    {
-      "matches" : [
-        "<all_urls>"
-      ],
-      "js" : ["content.js"],
-      "run_at": "document_start"
-    }
-  ],
-
-  "permissions": [
-    "storage"
-  ],
-
+  "content_scripts" : [{
+    "matches" : ["<all_urls>"],
+    "js" : ["content.js"],
+    "run_at": "document_start"
+  }],
+  "permissions": ["storage"],
   "icons": {
     "16": "images/icon32.png",
     "48": "images/icon64.png",
