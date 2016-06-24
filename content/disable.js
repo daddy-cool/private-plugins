@@ -5,48 +5,33 @@ var overwritePlugins =  '(' + function() {
 			'Widevine Content Decryption Module',
 			'Chrome PDF Viewer',
 			'Native Client',
-			'Shockwave Flash',
+      'Shockwave Flash',
 			'Chrome PDF Viewer'
 		];
-
-    var navigator = window.navigator;
-		console.log(navigator.plugins);
-    var modifiedNavigator;
-		var modifiedPlugins = Object.create(Object.getPrototypeOf(navigator.plugins));
 
 		function vecw (val, e, c, w) {
 			// Makes an object describing a property
 			return {
 				value: val,
-				enumerable: !!e,
 				configurable: !!c,
+				enumerable: !!e,
 				writable: !!w
 			}
 		}
 
-		/*var modifiedPluginsCount = 0;
-		for (var p in navigator.plugins) {
-			var plugin = navigator.plugins[p];
-			if (whitelistedPlugins.indexOf(plugin.name) !== -1) {
-				modifiedPlugins[p] =  plugin;
+    var modifiedPluginsList = {};
+    var modifiedPluginsCount = 0;
+    for (var p in window.navigator.plugins) {
+			var val = window.navigator.plugins[p];
+			if (whitelistedPlugins.indexOf(val.name) !== -1) {
+				modifiedPluginsList[modifiedPluginsCount++] =  vecw(typeof(val) == 'function' ? val.bind(window.navigator) : val);
+				modifiedPluginsList[val.name] =  vecw(typeof(val) == 'function' ? val.bind(window.navigator) : val);
 			}
-		}*/
+		}
+    modifiedPluginsList.length = vecw(modifiedPluginsCount);
 
-		//Object.defineProperty(modifiedPlugins.value, "refresh", vecw(function() {}));
-		//Object.defineProperties(modifiedPlugins.value, modifiedPluginsList);
-
-		/*Object.defineProperties(modifiedPlugins, {
-			length: {
-				value: modifiedPluginsCount,
-				configurable: false,
-				enumerable: true,
-				writable: false
-			}
-		})*/
-
-    Object.defineProperties(navigator.plugins, vecw(modifiedPlugins, true));
-
-		console.log(navigator.plugins);
+    var modifiedPlugins = Object.create(Object.getPrototypeOf(window.navigator.plugins), modifiedPluginsList);
+    Object.defineProperties(window.navigator, {plugins: vecw(modifiedPlugins, true)});
 } + ')();';
 
 document.documentElement.setAttribute('onreset', overwritePlugins);
