@@ -1,21 +1,11 @@
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-
-    console.log('received in listener');
-  sendResponse({farewell: "goodbye"});
-
-});
-
-chrome.storage.sync.set({whitelist:
-  {
-    global: [
-      'Widevine Content Decryption Module',
-      'Chrome PDF Viewer',
-      'Native Client',
-      //'Shockwave Flash',
-      'Chrome PDF Viewer'
-    ],
-    b: 'a'
+chrome.storage.sync.get('whitelist', function (wl) {
+  if (Object.keys(wl).length === 0) {
+    chrome.storage.sync.set({whitelist:
+      {
+        '*': []
+      }
+    }, function() {
+      console.log("saved");
+    });
   }
-}, function() {
-  console.log("saved");
 });

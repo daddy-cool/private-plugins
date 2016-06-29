@@ -11,7 +11,7 @@
     "js" : ["content.js"],
     "run_at": "document_start"
   }],
-  "permissions": ["storage"],
+  "permissions": ["storage", "tabs"],
   "icons": {
     "16": "images/icon32.png",
     "48": "images/icon64.png",
