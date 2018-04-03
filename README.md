@@ -1,3 +1,4 @@
-#private-plugins
+# private-plugins
 
-Blocks your browser from telling websites what plugins you have installed. Specific plugins can be re-enabled once or always for a given website.
+Chrome-Extensions that makes sure your browser plugins are not leaked to websites you visit.
+You can whitelist specific plugins per domain once or permanently (with Chrome sync support).
